@@ -1,4 +1,5 @@
 #include "../include/arch_multimedia_library.h"
+#include "../include/arch_multimedia_library_graphic.h"
 #include <stdio.h>
 
 int main(int argc, char*argv[]) {
@@ -11,6 +12,9 @@ int main(int argc, char*argv[]) {
 
     bool running = true;
     while (running) {
+
+        // when we'll have a proper event system, we can use it, for the time being, we just check for keypresses
+        // and close the window if we get one
         while (XPending(window->display)) {
             XEvent xev;
             XNextEvent(window->display, &xev);
@@ -18,11 +22,18 @@ int main(int argc, char*argv[]) {
                 running = false;
         }
 
-        glClearColor(0.2, 0.5, 0.2, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT);
+        arch_graphics_clear_screen(
+            window,
+            1.0f, 0.5f, 0.2f, 1.0f
+        );
+
+        // glClearColor(0.2, 0.5, 0.2, 1.0);
+        // glClear(GL_COLOR_BUFFER_BIT);
         glXSwapBuffers(window->display, window->window_id);
         usleep(16000); // ~60 FPS
     }
+
+    printf("Closing window...\n");
 
     // Destroy the window
     arch_multimedia_library_destroy_window(window);

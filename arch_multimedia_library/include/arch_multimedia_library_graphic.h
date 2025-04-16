@@ -75,7 +75,7 @@ void arch_graphics_draw_line(
  * @param b The blue component of the clear color (0.0 to 1.0).
  * @param a The alpha (transparency) component of the clear color (0.0 to 1.0).
  */
-void arch_graphics_draw_clear(
+void arch_graphics_clear_screen(
     arch_multimedia_library_window *window,
     float r,
     float g,
