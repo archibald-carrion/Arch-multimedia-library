@@ -59,6 +59,7 @@ void arch_graphics_draw_line(
     float y1,
     float x2,
     float y2,
+    unsigned int thickness,
     float r,
     float g,
     float b,

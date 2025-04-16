@@ -40,20 +40,30 @@ void arch_graphics_draw_line(
     float y1,
     float x2,
     float y2,
+    unsigned int thickness,
     float r,
     float g,
     float b,
     float a
 )
 {
+    // Check if the window is initialized
+    if (window == NULL || window->display == NULL) {
+        fprintf(stderr, "Error: Invalid window parameter in arch_graphics_draw_line.\n");
+        return;
+    }
     // Set the color for the line
     glColor4f(r, g, b, a);
 
+    
     // Draw the line using OpenGL
     glBegin(GL_LINES);
     glVertex2f(x1, y1);
     glVertex2f(x2, y2);
     glEnd();
+    
+
+    glLineWidth(thickness);
 }
 
 void arch_graphics_clear_screen(
@@ -82,9 +92,6 @@ void arch_graphics_clear_screen(
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-    
-
 }
 
 

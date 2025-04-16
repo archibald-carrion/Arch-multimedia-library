@@ -47,6 +47,15 @@ int main(int argc, char* argv[]) {
             0.0f, 0.0f, 1.0f, 1.0f
         );
 
+        // Draw a line from the top left to the bottom right
+        arch_graphics_draw_line(
+            window,
+            0, 0,
+            window->width, window->height,
+            5, // thickness
+            1.0f, 0.0f, 0.0f, 1.0f
+        );
+
         arch_graphics_render(window);
         usleep(16000); // ~60 FPS
     }
