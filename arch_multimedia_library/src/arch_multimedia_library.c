@@ -1,12 +1,5 @@
 #include "../include/arch_multimedia_library.h"
 
-/**
- * @brief Creates a window with OpenGL context using X11 and GLX.
- * @param width The width of the window.
- * @param height The height of the window.
- * @param title The title of the window.
- * @return A pointer to the created window structure, or NULL on failure.
- */
 arch_multimedia_library_window* arch_multimedia_library_create_window(int width, int height, const char *title) {
 
     arch_multimedia_library_window *window = malloc(sizeof(arch_multimedia_library_window));
@@ -75,13 +68,6 @@ arch_multimedia_library_window* arch_multimedia_library_create_window(int width,
     return window;
 }
 
-/**
- * @brief Destroys the window and cleans up resources.
- * @param window The window to be destroyed.
- * 
- * This function releases all resources associated with the specified window,
- * including the OpenGL context and the X window itself.
- */
 void arch_multimedia_library_destroy_window(arch_multimedia_library_window *window) {
     if (window) {
         glXMakeCurrent(window->display, None, NULL);
