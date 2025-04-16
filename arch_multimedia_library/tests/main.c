@@ -27,6 +27,15 @@ int main(int argc, char*argv[]) {
             1.0f, 0.5f, 0.2f, 1.0f
         );
 
+        // add a rectangle in the middle of the screen
+        arch_graphics_draw_rect(
+            window,
+            window->width / 2 - 50,
+            window->height / 2 - 50,
+            100, 200,
+            0.0f, 0.0f, 1.0f, 1.0f
+        );
+
         // glClearColor(0.2, 0.5, 0.2, 1.0);
         // glClear(GL_COLOR_BUFFER_BIT);
         glXSwapBuffers(window->display, window->window_id);
