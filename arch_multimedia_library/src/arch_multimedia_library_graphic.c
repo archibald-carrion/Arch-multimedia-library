@@ -83,4 +83,15 @@ void arch_graphics_clear_screen(
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+    
+
+}
+
+
+void arch_graphics_render(
+    arch_multimedia_library_window *window
+)
+{
+    // Swap the buffers to display the rendered content
+    glXSwapBuffers(window->display, window->window_id);
 }

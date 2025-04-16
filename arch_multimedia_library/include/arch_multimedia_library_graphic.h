@@ -83,4 +83,16 @@ void arch_graphics_clear_screen(
     float a
 );
 
+/**
+ * @brief Renders the graphics on the screen.
+ *
+ * This function is responsible for rendering the graphics on the screen.
+ * It should be called after drawing operations to display the results.
+ * 
+ * @param window The window where the graphics will be rendered.
+ */
+void arch_graphics_render(
+    arch_multimedia_library_window *window
+);
+
 #endif // ARCH_MULTIMEDIA_LIBRARY_GRAPHIC_H

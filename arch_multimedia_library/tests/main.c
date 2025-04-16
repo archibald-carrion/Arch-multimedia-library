@@ -2,24 +2,35 @@
 #include "../include/arch_multimedia_library_graphic.h"
 #include <stdio.h>
 
-int main(int argc, char*argv[]) {
+int main(int argc, char* argv[]) {
     arch_multimedia_library_window *window = arch_multimedia_library_create_window(800, 600, "Arch Window");
-           
+
     if (!window) {
         fprintf(stderr, "Failed to create window\n");
         return 1;
     }
 
-    bool running = true;
-    while (running) {
+    // Register for window close (X button) event, for the moment it's here, but in future implementation
+    // it should be in the input management system of arch_multimedia_library
+    Atom wm_delete = XInternAtom(window->display, "WM_DELETE_WINDOW", False);
+    XSetWMProtocols(window->display, window->window_id, &wm_delete, 1);
 
-        // when we'll have a proper event system, we can use it, for the time being, we just check for keypresses
-        // and close the window if we get one
+    bool running = true;
+    while (running && !window->is_closing) {
+        // Event handling loop
         while (XPending(window->display)) {
             XEvent xev;
             XNextEvent(window->display, &xev);
+
+            // Handle keypresses (temporary)
             if (xev.type == KeyPress)
                 running = false;
+
+            // Handle window close (X) button so we can close the app correctly
+            if (xev.type == ClientMessage && (Atom)xev.xclient.data.l[0] == wm_delete) {
+                running = false;
+                window->is_closing = true;
+            }
         }
 
         arch_graphics_clear_screen(
@@ -27,7 +38,7 @@ int main(int argc, char*argv[]) {
             1.0f, 0.5f, 0.2f, 1.0f
         );
 
-        // add a rectangle in the middle of the screen
+        // Draw a rectangle in the middle of the screen
         arch_graphics_draw_rect(
             window,
             window->width / 2 - 50,
@@ -36,15 +47,11 @@ int main(int argc, char*argv[]) {
             0.0f, 0.0f, 1.0f, 1.0f
         );
 
-        // glClearColor(0.2, 0.5, 0.2, 1.0);
-        // glClear(GL_COLOR_BUFFER_BIT);
-        glXSwapBuffers(window->display, window->window_id);
+        arch_graphics_render(window);
         usleep(16000); // ~60 FPS
     }
 
     printf("Closing window...\n");
-
-    // Destroy the window
     arch_multimedia_library_destroy_window(window);
 
     return 0;
