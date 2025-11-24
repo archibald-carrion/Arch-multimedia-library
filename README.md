@@ -47,6 +47,9 @@ gcc ./tests/static_example.c ./include/*.h ./src/*.c -o cool_app -lX11 -lGL
 ./cool_app
 ```
 
+## Examples
+![Tetris](doc/tetris.png)
+
 ### ✅ Compiling using CMake
 TODO
 
