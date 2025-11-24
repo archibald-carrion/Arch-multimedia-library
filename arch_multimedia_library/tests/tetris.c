@@ -199,7 +199,7 @@ int main(int argc, char* argv[]) {
     srand(time(NULL));
     
     arch_multimedia_library_window *window = arch_multimedia_library_create_window(
-        500, 700, "Tetris - Arrow Keys: Move | Up: Rotate | Space: Drop");
+        500, 700, "Tetris");
     if (!window) {
         fprintf(stderr, "Failed to create window\n");
         return 1;
@@ -276,7 +276,10 @@ int main(int argc, char* argv[]) {
         usleep(16000);
     }
     
-    printf("Final Score: %d\n", score);
+    if(!game_over) {
+    	printf("Final Score: %d\n", score);
+    }
+
     arch_multimedia_library_destroy_window(window);
     return 0;
 }
